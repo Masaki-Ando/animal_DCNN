@@ -1,10 +1,11 @@
 # animal_DCNN
-This program was used in the paper below.  
+This program was used in the paper below, and is published according to MIT license.  
+
 `
 Ando M., Nakatsuka S., Aizawa H., Nakamori S., Ikeda T., Moribe J., Terada K. and Kato K. In_submitting. Recognition of wildlife in images taken by camera trap with deep learning.
 `
 
-このプログラムは以下の論文で使用されたものです。  
+このプログラムは以下の論文で使用されたものであり、MITライセンスにしたがって公開されています。  
 `
 安藤正規・中塚俊介・相澤宏旭・中森さつき・池田敬・森部絢嗣・寺田和憲・加藤邦人. 投稿中. 深層学習（Deep Learning）によるカメラトラップ画像の判別.哺乳類科学
 `
