@@ -35,35 +35,74 @@ fullpath,learning_phase,category,unclear_a,blank,mustelidae,boar,bird,deer,maske
 ## How to use 使用方法
 ### training 学習
 ```
-usage: train.py [-h]
-                [--substances SUBSTANCES [SUBSTANCES ...]]
-                [--nb_epoch NB_EPOCH]
-                [--batch_size BATCH_SIZE]
-                [--height HEIGHT]
-                [--width WIDTH]
-                [--save_steps SAVE_STEPS]
-                [--csv_path CSV_PATH]
-                [--param_dir PARAM_DIR]
-                [--optimizer OPTIMIZER]
-                [--weight WEIGHT]
-                [--base BASE]
-                [--vectorize VECTORIZE]
-                [--task TASK]
+usage: train.py [-h] [--substances SUBSTANCES [SUBSTANCES ...]]
+                [--nb_epoch NB_EPOCH] [--batch_size BATCH_SIZE]
+                [--height HEIGHT] [--width WIDTH] [--save_steps SAVE_STEPS]
+                [--csv_path CSV_PATH] [--param_dir PARAM_DIR]
+                [--optimizer {sgd,adam,adadelta}]
+                [--learning_rate LEARNING_RATE] [--weight WEIGHT]
+                [--freeze_index FREEZE_INDEX] [--base BASE] [--task TASK]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --substances SUBSTANCES [SUBSTANCES ...], -s SUBSTANCES [SUBSTANCES ...]
+                        回帰する動物種（1種以上の指定が必要）
+  --nb_epoch NB_EPOCH, -e NB_EPOCH
+                        学習回数
+  --batch_size BATCH_SIZE, -bs BATCH_SIZE
+                        バッチサイズ
+  --height HEIGHT, -ht HEIGHT
+                        ネットワークに入力する画像の高さ（内部でこの高さにリサイズ）
+  --width WIDTH, -wd WIDTH
+                        ネットワークに入力する画像の幅（内部でこの幅にリサイズ）
+  --save_steps SAVE_STEPS, -ss SAVE_STEPS
+                        何Epochごとに重みを保存するか
+  --csv_path CSV_PATH   学習の際に使用するCSVファイルのパス
+  --param_dir PARAM_DIR
+                        重みを保存するディレクトリ
+  --optimizer {sgd,adam,adadelta}
+                        最適化手法の指定．以下の3種から指定 [sgd, adam, adadelta]
+  --learning_rate LEARNING_RATE, -lr LEARNING_RATE
+                        学習率の指定．デフォルトはkerasのデフォルト値に従う
+  --weight WEIGHT       初期重みの設定．kerasの学習済みモデルから学習する場合は imagenet を指定．
+  --freeze_index FREEZE_INDEX, -fi FREEZE_INDEX
+                        ResNetやVGGをボトムから数えて何ブロック目まで，Fixするか
+  --base BASE           ベースネットワークの指定．以下の2種から指定 [resnet50, vgg16]
+  --task TASK           タスクの指定．本論文では multi_regression を使用
+
 ```
 
 ### prediction 予測
 ```
-usage: predict.py [-h]
-                  [--model_json MODEL_JSON]
-                  [--task TASK]
-                  [--weight_path WEIGHT_PATH]
-                  [--result_dir RESULT_DIR]
+usage: predict.py [-h] [--model_json MODEL_JSON] [--task TASK]
+                  [--weight_path WEIGHT_PATH] [--result_dir RESULT_DIR]
                   [--normalization NORMALIZATION]
                   [--substances SUBSTANCES [SUBSTANCES ...]]
-                  [--csv_path CSV_PATH]
-                  [--batch_size BATCH_SIZE]
-                  [--height HEIGHT]
-                  [--width WIDTH]
+                  [--csv_path CSV_PATH] [--batch_size BATCH_SIZE]
+                  [--height HEIGHT] [--width WIDTH]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --model_json MODEL_JSON
+                        train.pyで保存されたモデルのJSONファイルのパス
+  --task TASK           タスクの指定．本論文では multi_regression を使用
+  --weight_path WEIGHT_PATH
+                        train.pyで保存されたモデルの重みファイルのパス
+  --result_dir RESULT_DIR
+                        予測結果のCSVファイルを保存するディレクトリ
+  --normalization NORMALIZATION
+                        入力画像の正規化のスケール設定．学習時に imagenet の重みを初期値にしたなら，imagenet
+                        を指定．[0, 1]なら sigmoid を指定
+  --substances SUBSTANCES [SUBSTANCES ...], -s SUBSTANCES [SUBSTANCES ...]
+                        回帰する動物種（1種以上の指定が必要）
+  --csv_path CSV_PATH   学習の際に使用するCSVファイルのパス
+  --batch_size BATCH_SIZE, -bs BATCH_SIZE
+                        バッチサイズ
+  --height HEIGHT, -ht HEIGHT
+                        ネットワークに入力する画像の高さ（内部でこの高さにリサイズ）
+  --width WIDTH, -wd WIDTH
+                        ネットワークに入力する画像の幅（内部でこの幅にリサイズ）
+
 ```
 
 ## Model モデル
