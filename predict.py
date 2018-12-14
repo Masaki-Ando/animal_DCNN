@@ -16,17 +16,17 @@ SUBSTANCES = ['unclear_a', 'mustelidae', 'boar', 'bird', 'deer', 'masked',
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_json', type=str)
-    parser.add_argument('--task', type=str)
-    parser.add_argument('--weight_path', type=str)
-    parser.add_argument('--result_dir', type=str)
-    parser.add_argument('--normalization', type=str, default='sigmoid')
-    parser.add_argument('--substances', '-s', nargs='+', default=SUBSTANCES)
-    parser.add_argument('--csv_path', default='./csv/DL_base_171228_lp.csv')
-    parser.add_argument('--batch_size', '-bs', type=int, default=16)
-    parser.add_argument('--height', '-ht', type=int, default=224)
-    parser.add_argument('--width', '-wd', type=int, default=224)
-
+    parser.add_argument('--model_json', type=str, help='train.pyで保存されたモデルのJSONファイルのパス')
+    parser.add_argument('--task', default='multi_regression', help='タスクの指定．本論文では multi_regression を使用')
+    parser.add_argument('--weight_path', type=str, help='train.pyで保存されたモデルの重みファイルのパス')
+    parser.add_argument('--result_dir', type=str, help='予測結果のCSVファイルを保存するディレクトリ')
+    parser.add_argument('--normalization', type=str, default='imagenet', help='入力画像の正規化のスケール設定．学習時に imagenet の重みを初期値にしたなら，imagenet を指定．[0, 1]なら sigmoid を指定')
+    parser.add_argument('--substances', '-s', nargs='+', default=SUBSTANCES, help='回帰する動物種（1種以上の指定が必要）')
+    parser.add_argument('--csv_path', default='./csv/DL_base_171228_lp.csv', help='学習の際に使用するCSVファイルのパス')
+    parser.add_argument('--batch_size', '-bs', type=int, default=16, help='バッチサイズ')
+    parser.add_argument('--height', '-ht', type=int, default=224, help='ネットワークに入力する画像の高さ（内部でこの高さにリサイズ）')
+    parser.add_argument('--width', '-wd', type=int, default=224, help='ネットワークに入力する画像の幅（内部でこの幅にリサイズ）')
+    
     args = parser.parse_args()
     os.makedirs(args.result_dir, exist_ok=True)
 
