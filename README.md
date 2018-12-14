@@ -1,11 +1,11 @@
 # animal_DCNN
 
-## Hardware Environments
+## Hardware Environments 物理環境
 * CPU: Intel i5-7600
 * Memory: 32GB
 * GPU: nvidia GeForce GTX 1080
 
-## Software Environments
+## Software Environments ソフトウェア環境
 * Ubuntu 16.04LTS(64bit)
 * GPU Driver nvidia-396
 * python 3.5
@@ -14,8 +14,9 @@
 * tensorflow 1.10
 * keras 2.2.4
 
-## Data format
-See sample.csv
+## Data format データ形式
+See sample.csv  
+sample.csvを参照してください。
 
 ```
 $ head sample.csv
@@ -31,8 +32,8 @@ fullpath,learning_phase,category,unclear_a,blank,mustelidae,boar,bird,deer,maske
 ~/path/to/each/photo/file/IMAG0012.JPG,0,blank,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 ```
 
-## How to use
-### training
+## How to use 使用方法
+### training 学習
 ```
 usage: train.py [-h]
                 [--substances SUBSTANCES [SUBSTANCES ...]]
@@ -50,7 +51,7 @@ usage: train.py [-h]
                 [--task TASK]
 ```
 
-### prediction
+### prediction 予測
 ```
 usage: predict.py [-h]
                   [--model_json MODEL_JSON]
@@ -65,11 +66,13 @@ usage: predict.py [-h]
                   [--width WIDTH]
 ```
 
-## Model
-This is multi-regression model.  
+## Model モデル
 Base network is resnet50.  
-This network outputs a N-dim vector from an image.  
-Each element of that vector represents the number of each animal in the input image.  
+This the paper, we used multi-regression model.  
+This network outputs a N-dim vector from an image, each element of that vector represents the number of each animal in the input image.  
+このモデルはresnet50のネットワーク構造をベースとしている。  
+論文中では、多項回帰モデルを設定してモデルを学習した。  
+モデルの出力は、画像内に存在すると予測される各動物種の頭数のn次元ベクトルである。  
 
 e.g.) regression of the numbers of ['deer', 'serow', 'boar', 'bear']  
 ```
@@ -80,4 +83,13 @@ threshold = 0.1
 * output[0] shows the number of deer (=0).
 * output[1] shows the number of serow (=0).
 * output[2] shows the number of boar (=1).
-* output[3] shows the number of cat (=0).
+* output[3] shows the number of bear (=0).
+
+例) [シカ,カモシカ,イノシシ,ツキノワグマ]の頭数を回帰した場合、出力(output)、閾値(threshold)が上記のとおりだった場合、  
+
+* output[0] はシカの頭数 (=0)
+* output[1] はカモシカの頭数 (=0)
+* output[2] はイノシシの頭数 (=1)
+* output[3] はツキノワグマの頭数 (=0)  
+の推定値をそれぞれ示す。
+
