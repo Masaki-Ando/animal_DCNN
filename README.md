@@ -1,4 +1,9 @@
 # animal_DCNN
+This program was used in the paper below.
+
+
+このプログラムは以下の論文で使用されたものです。
+
 
 ## Hardware Environments 物理環境
 * CPU: Intel i5-7600
